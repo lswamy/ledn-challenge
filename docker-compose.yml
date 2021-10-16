@@ -1,0 +1,16 @@
+version: "3.8"
+services:
+  mongodb:
+    image : mongo:latest
+    container_name: mongodb
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password
+      MONGO_INITDB_DATABASE: ledn
+    volumes:
+    - /home/luke/data/mongodb:/data/db
+    # - ./db-init.js:/docker-entrypoint-initdb.d/db-init.js
+    - ./accounts_large.js:/docker-entrypoint-initdb.d/accounts_large.js
+    ports:
+    - 27017:27017
+    restart: unless-stopped
