@@ -20,6 +20,11 @@ The /accounts endpoint will accept the following parameters:
 The authentication token retrieved from the /authorize endpoint must be included in the header of the /accounts request:
     * `Authorization: Bearer <auth_token>`
 
+The response will be a json object with the following properties:
+* `results` a list of accounts, number of results is limited to the requested amount
+* `total_results` total number of accounts that meet the requested criteria
+* `next_cursor` the value of createdDate or amt (depending of sort param) to fetch the next set of results
+
 
 # Install Instructions
 This app is can be run in a local python virtual environment or using docker.
