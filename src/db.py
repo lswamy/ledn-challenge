@@ -43,8 +43,12 @@ def init_db(app):
             account['createdDate'] = datetime.strptime(account.get('createdDate'), "%Y-%m-%dT%H:%M:%S.%fZ")
             account_ops.append(InsertOne(account))
 
-        batch_size = 1000
+        batch_size = 2000
         batches = [account_ops[i:i+batch_size] for i in range(0, len(account_ops), batch_size)]
+        app.logger.info("inserting %d batches of %d docs", len(batches), batch_size)
+        inserted = 0
         for batch in batches:
             bulk_result = db.accounts.bulk_write(batch, ordered=False)
             app.logger.info(bulk_result.inserted_count)
+            inserted += bulk_result.inserted_count
+        return inserted

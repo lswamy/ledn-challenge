@@ -1,5 +1,12 @@
 version: "3.8"
 services:
+  app:
+    build: .
+    command: flask run --host=0.0.0.0
+    ports:
+      - 5000:5000
+    volumes:
+      - .:/app
   mongodb:
     image : mongo:latest
     container_name: mongodb
@@ -9,8 +16,6 @@ services:
       MONGO_INITDB_DATABASE: ledn
     volumes:
     - /home/luke/data/mongodb:/data/db
-    # - ./db-init.js:/docker-entrypoint-initdb.d/db-init.js
-    - ./accounts_large.js:/docker-entrypoint-initdb.d/accounts_large.js
     ports:
     - 27017:27017
     restart: unless-stopped

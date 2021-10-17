@@ -127,6 +127,7 @@ def create_app():
         }
         return jsonify(response)
 
-    init_db(app)
+    init_result = init_db(app)
+    app.logger.info("inserted %d docs", init_result)
 
     return app
