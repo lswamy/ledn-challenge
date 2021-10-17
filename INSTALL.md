@@ -2,20 +2,20 @@
 I have chosen to focus on the backend api and build the app using Python/Flask and MongoDB. To keep it lightweight, minimal libraries were used.
 
 There are two endpoints:
-    * `/authorize` is used first to fetch and authorization token to access the /accounts endpoint
-    * `/accounts` is used to retrieve account entries from the database
+* `/authorize` is used first to fetch and authorization token to access the /accounts endpoint
+* `/accounts` is used to retrieve account entries from the database
 
 Since accounts contain personal information it is best practice to secure endpoints accessing this data. I have implemented a simple JWT flow to demonstrate this.
 The /authorize endpoint will accept login credentials and provide a short lived access token.
 
 The /accounts endpoint will accept the following parameters:
-    * `country` filter on country code
-    * `mfa` filter on mfa type
-    * `name` filter on first name or last name
-    * `sort` field to sort on, accepts "createdDate" or "amt"
-    * `sort_dir` sorting direction, accepts 1 (ascending) or -1 (descending)
-    * `limit` number of results to return
-    * `next_cursor` a token used for pagination, next set of results will start at this value
+* `country` filter on country code
+* `mfa` filter on mfa type
+* `name` filter on first name or last name
+* `sort` field to sort on, accepts "createdDate" or "amt"
+* `sort_dir` sorting direction, accepts 1 (ascending) or -1 (descending)
+* `limit` number of results to return
+* `next_cursor` a token used for pagination, next set of results will start at this value
 
 The authentication token retrieved from the /authorize endpoint must be included in the header of the /accounts request:
     * `Authorization: Bearer <auth_token>`
