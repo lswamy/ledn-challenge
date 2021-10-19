@@ -38,7 +38,7 @@ This app is can be run in a local python virtual environment or using docker.
     * accounts endpoint is https://localhost:5000/accounts
 5. database will be initialized when docker starts the mongodb service
 
-### Local
+### Local without Docker
 1. edit .env MONGODB_URL to point to your local database
 2. create a virtual environment and install requirements
     * `python3 -m venv .venv`
@@ -49,7 +49,7 @@ This app is can be run in a local python virtual environment or using docker.
 4. app is accessible at http://localhost:5000
     * authorize endpoint is http://localhost:5000/authorize
     * accounts endpoint is https://localhost:5000/accounts
-5. On first execution, if accounts collection in database is empty, the accounts.json file will be imported. Note that if you choose to use your own database,
+5. When flask is started, if accounts collection in database is empty, the accounts_large.json file will be imported. Note that if you already have an existing database,
 the date fields in the json were converted to ISODate objects and indexes created for sorting and performance.
 
 
