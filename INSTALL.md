@@ -36,6 +36,7 @@ This app is can be run in a local python virtual environment or using docker.
 4. app is accessible at http://localhost:5000
     * authorize endpoint is http://localhost:5000/authorize
     * accounts endpoint is https://localhost:5000/accounts
+5. database will be initialized when docker starts the mongodb service
 
 ### Local
 1. edit .env MONGODB_URL to point to your local database
@@ -48,10 +49,11 @@ This app is can be run in a local python virtual environment or using docker.
 4. app is accessible at http://localhost:5000
     * authorize endpoint is http://localhost:5000/authorize
     * accounts endpoint is https://localhost:5000/accounts
-
-On first execution, if accounts collection in database is empty, the accounts.json file will be imported. Note that if you choose to use your own database,
+5. On first execution, if accounts collection in database is empty, the accounts.json file will be imported. Note that if you choose to use your own database,
 the date fields in the json were converted to ISODate objects and indexes created for sorting and performance.
 
+
+### EXAMPLE USAGE
 To use first call the /authorize endpoint, username and password are defined in `.env` file.
 
 `curl -X POST http://localhost:5000/authorize -H 'Content-Type: application/json' -d '{"username":"ledn","password":"letmein"}'`
@@ -59,4 +61,8 @@ To use first call the /authorize endpoint, username and password are defined in 
 This will return a json with a token
 `{"auth_token":"a jwt token"}`
 
-`curl http://localhost:5000/accounts?country=CA&sort=amt -H 'Authorization: Bearer auth_token'`
+To request accounts
+`curl 'http://localhost:5000/accounts?country=CA&sort=amt' -H 'Authorization: Bearer <auth_token>'`
+
+To get next set of results, add next_cursor from the previous response
+`curl 'http://localhost:5000/accounts?country=CA&sort=amt&next_cursor=2634538' -H 'Authorization: Bearer <auth_token>'`
